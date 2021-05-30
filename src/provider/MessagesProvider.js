@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export const MessagesContext = createContext();
 
-export default async function MessagesProvider({ children }) {
+export default function MessagesProvider({ children }) {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -11,8 +11,12 @@ export default async function MessagesProvider({ children }) {
     if (storagedMessages) setMessages(storagedMessages);
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem('messages', JSON.stringify(messages));
+  }, [messages]);
+
   return (
-    <MessagesContext.Provider value={{ messages }}>
+    <MessagesContext.Provider value={{ messages, setMessages }}>
       { children }
     </MessagesContext.Provider>
   );
