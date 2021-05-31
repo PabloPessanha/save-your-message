@@ -25,6 +25,7 @@ const MessageForm = ({
     <label className="block" htmlFor="message">
       <span className="text-gray-700 font-bold mb-2">Textarea</span>
       <textarea
+        onKeyPress={(e) => e.key === 'Enter' && saveMessage(e)}
         onChange={(e) => setMessage(e.target.value)}
         value={message}
         id="message"

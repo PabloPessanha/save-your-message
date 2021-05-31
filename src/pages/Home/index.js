@@ -1,22 +1,24 @@
 import React, { useCallback, useContext, useState } from 'react';
-import moment from 'moment/locale/pt-br';
+import moment from 'moment';
+import localization from 'moment/locale/pt-br';
 import { MessageForm } from '../../components';
 import { MessagesContext } from '../../provider/MessagesProvider';
 
-moment.locale('pt-BR');
+moment.updateLocale('pt-br', localization);
 
 const Home = () => {
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState('Anonymous');
   const [message, setMessage] = useState('');
   const { setMessages } = useContext(MessagesContext);
 
   const saveMessage = useCallback(async (e) => {
     e.preventDefault();
+
     const time = moment().format('LLL');
 
     await setMessages((msgs) => [...msgs, { username, message, time }]);
     setMessage('');
-    setUsername('');
+    setUsername(username === 'Anonymous' ? username : '');
   }, [username, message]);
 
   return (
