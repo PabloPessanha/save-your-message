@@ -16,6 +16,7 @@
             "controlComponents": ["CustomInput"],
             "depth": 3
           }],
+        "object-curly-newline": "off",
     "max-len": [
         "warn",
         {

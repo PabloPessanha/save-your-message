@@ -9,20 +9,20 @@ moment.updateLocale('pt-br', localization);
 const Home = () => {
   const [username, setUsername] = useState('Anonymous');
   const [message, setMessage] = useState('');
-  const { setMessages } = useContext(MessagesContext);
+  const { messages, setMessages } = useContext(MessagesContext);
 
   const saveMessage = useCallback(async (e) => {
     e.preventDefault();
-
+    const id = messages.length;
     const time = moment().format('LLL');
 
-    await setMessages((msgs) => [...msgs, { username, message, time }]);
+    await setMessages((msgs) => [...msgs, { username, message, time, id }]);
     setMessage('');
     setUsername(username === 'Anonymous' ? username : '');
   }, [username, message]);
 
   return (
-    <div className="w-full max-w-xs mx-auto my-24">
+    <div className="w-full max-w-sm mx-auto my-24">
       <MessageForm
         username={username}
         setUsername={setUsername}
